@@ -1,6 +1,6 @@
 /* =========================================================
    Home Crumbs — homemade cookie shop
-   Design tokens: warm brown + cream, Fredoka / Nunito
+   Design tokens: warm brown + cream, Baloo Bhaijaan 2 / Tajawal (Arabic, RTL)
    ========================================================= */
 :root {
   --color-primary: #92400e;
@@ -19,8 +19,8 @@
   --color-error: #b91c1c;
   --color-success: #166534;
 
-  --font-display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
-  --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Baloo Bhaijaan 2", "Tajawal", system-ui, sans-serif;
+  --font-body: "Tajawal", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --radius-sm: 10px;
   --radius-md: 18px;
@@ -54,8 +54,8 @@ html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: calc(var(-
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.8;
   color: var(--color-foreground);
   background: var(--color-background);
   -webkit-font-smoothing: antialiased;
@@ -67,12 +67,12 @@ img, svg { display: block; max-width: 100%; }
 h1, h2, h3 {
   font-family: var(--font-display);
   color: var(--color-heading);
-  line-height: 1.15;
+  line-height: 1.35;
   margin: 0 0 var(--space-4);
   text-wrap: balance;
 }
-h1 { font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 700; }
-h2 { font-size: clamp(1.9rem, 4vw, 2.75rem); font-weight: 700; }
+h1 { font-size: clamp(2.3rem, 5.2vw, 3.8rem); font-weight: 800; }
+h2 { font-size: clamp(1.8rem, 3.8vw, 2.6rem); font-weight: 800; }
 h3 { font-size: 1.35rem; font-weight: 600; }
 p { margin: 0 0 var(--space-4); }
 
@@ -100,7 +100,7 @@ a { color: var(--color-primary); }
 }
 
 .skip-link {
-  position: absolute; left: var(--space-4); top: -60px;
+  position: absolute; inset-inline-start: var(--space-4); top: -60px;
   background: var(--color-primary); color: var(--color-on-primary);
   padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
   z-index: 100; font-weight: 700; text-decoration: none;
@@ -112,9 +112,7 @@ a { color: var(--color-primary); }
   display: inline-flex; align-items: center; gap: var(--space-2);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 1rem;
   color: var(--color-secondary);
   margin-bottom: var(--space-3);
 }
@@ -243,7 +241,7 @@ a { color: var(--color-primary); }
   overflow: hidden;
 }
 .hero::before {
-  content: ""; position: absolute; inset: auto -10% -40% auto;
+  content: ""; position: absolute; inset: auto auto -40% -10%;
   width: 640px; height: 640px; border-radius: 50%;
   background: radial-gradient(circle, #fcd9a0 0%, rgba(252, 217, 160, 0) 70%);
   z-index: -1;
@@ -251,11 +249,7 @@ a { color: var(--color-primary); }
 .hero-inner { display: grid; gap: var(--space-7); align-items: center; }
 @media (min-width: 900px) { .hero-inner { grid-template-columns: 1.05fr 1fr; } .hero { padding: var(--space-8) 0 var(--space-9); } }
 
-.hero h1 .highlight {
-  color: var(--color-primary);
-  background: linear-gradient(transparent 62%, var(--color-accent-soft) 62%);
-  padding: 0 4px;
-}
+.hero h1 .highlight { color: var(--color-primary); }
 .lead { font-size: 1.15rem; max-width: 34em; color: var(--color-muted-foreground); }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-6) 0; }
 
@@ -296,7 +290,7 @@ a { color: var(--color-primary); }
   padding: var(--space-3);
 }
 .sticker span { font-size: 1.5rem; font-weight: 700; display: block; }
-.sticker strong { font-size: 0.85rem; font-weight: 500; }
+.sticker strong { font-size: 0.85rem; font-weight: 600; }
 @media (min-width: 900px) { .sticker { left: 2%; } }
 
 /* ---------- Sections ---------- */
@@ -352,7 +346,7 @@ a { color: var(--color-primary); }
 }
 .cookie-card:hover .cookie-visual svg { transform: rotate(14deg) scale(1.04); }
 .badge {
-  position: absolute; top: var(--space-4); left: var(--space-4);
+  position: absolute; top: var(--space-4); inset-inline-start: var(--space-4);
   padding: 4px 12px; border-radius: var(--radius-pill);
   background: var(--color-heading); color: #fff7e6;
   font-size: 0.8rem; font-weight: 700; white-space: nowrap;
@@ -390,8 +384,8 @@ a { color: var(--color-primary); }
   background: rgba(252, 217, 160, 0.85);
 }
 .recipe-title { font-size: 1.4rem; font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-3); }
-.recipe-card ul { margin: 0; padding-left: 1.1em; line-height: 32px; font-weight: 500; }
-.recipe-cookie { position: absolute; right: -12px; bottom: -36px; width: 120px; transform: rotate(18deg); filter: drop-shadow(0 8px 10px rgba(74, 37, 17, 0.3)); }
+.recipe-card ul { margin: 0; padding-inline-start: 1.1em; line-height: 32px; font-weight: 600; }
+.recipe-cookie { position: absolute; inset-inline-end: -12px; bottom: -36px; width: 120px; transform: rotate(18deg); filter: drop-shadow(0 8px 10px rgba(74, 37, 17, 0.3)); }
 
 .values { list-style: none; padding: 0; margin: var(--space-6) 0 0; display: grid; gap: var(--space-4); }
 .values li { display: flex; gap: var(--space-4); align-items: flex-start; }
@@ -489,6 +483,7 @@ a { color: var(--color-primary); }
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .field textarea { resize: vertical; }
+.field input[type="tel"] { direction: ltr; text-align: right; }
 .field input:focus, .field textarea:focus {
   outline: none;
   border-color: var(--color-primary);
@@ -543,12 +538,12 @@ a { color: var(--color-primary); }
 }
 .cart-backdrop.is-open { opacity: 1; }
 .cart {
-  position: fixed; top: 0; right: 0; bottom: 0; z-index: 70;
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 70;
   width: min(420px, 100vw);
   display: flex; flex-direction: column;
   background: var(--color-background);
   box-shadow: var(--shadow-lg);
-  transform: translateX(100%);
+  transform: translateX(-100%);
   visibility: hidden;
   transition: transform 0.3s var(--ease-out), visibility 0.3s;
 }

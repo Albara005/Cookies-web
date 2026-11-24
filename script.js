@@ -10,29 +10,29 @@
 
   /* ---------- Settings: edit these for your shop ---------- */
   const SHOP = {
-    name: "Home Crumbs",
-    orderEmail: "orders@homecrumbs.example", // <- put your real email here
-    currency: "USD",
+    name: "كوكيز البيت",
+    orderEmail: "orders@homecrumbs.example", // <- ضع بريدك الإلكتروني هنا
+    currency: "ر.س", // <- غيّر العملة إذا لزم (مثلاً: ر.ع، د.إ، د.ك، ر.ق)
   };
 
   /* ---------- The cookies (edit names, prices, descriptions) ---------- */
   const COOKIES = [
-    { id: "classic",   name: "Classic Chocolate Chip", price: 15, category: "classic",   badge: "Bestseller", tint: "#fde3b0",
-      desc: "Brown butter dough, crispy edges, soft gooey centre and big pools of dark chocolate." },
-    { id: "double",    name: "Double Chocolate Fudge", price: 17, category: "chocolate", tint: "#f3d3b5",
-      desc: "Rich cocoa dough loaded with chocolate chunks and a pinch of flaky sea salt." },
-    { id: "oat",       name: "Oatmeal Raisin",         price: 14, category: "classic",   tint: "#f6e6c2",
-      desc: "Chewy rolled oats, plump raisins and a warm hint of cinnamon. Grandma's favourite." },
-    { id: "pb",        name: "Peanut Butter Crunch",   price: 15, category: "classic",   tint: "#fbe2b8",
-      desc: "Creamy peanut butter cookie with the classic fork criss-cross and crunchy peanut bits." },
-    { id: "redvelvet", name: "Red Velvet White Chip",  price: 17, category: "special",   badge: "New", tint: "#f9d6cf",
-      desc: "Soft red velvet cookie studded with creamy white chocolate chips." },
-    { id: "sugar",     name: "Funfetti Sugar Cookie",  price: 14, category: "special",   tint: "#fcecc9",
-      desc: "Buttery vanilla sugar cookie rolled in rainbow sprinkles. A birthday in every bite." },
-    { id: "smores",    name: "S'mores Stuffed",        price: 18, category: "chocolate", badge: "Weekend only", tint: "#f2dcc0",
-      desc: "Graham cracker cookie stuffed with toasted marshmallow and milk chocolate." },
-    { id: "pistachio", name: "Pistachio Cardamom",     price: 18, category: "special",   badge: "Seasonal", tint: "#e6ecc8",
-      desc: "Roasted pistachios, a touch of cardamom and a white chocolate drizzle." },
+    { id: "classic",   name: "كوكيز رقائق الشوكولاتة",   price: 45, category: "classic",   badge: "الأكثر طلبًا", tint: "#fde3b0",
+      desc: "عجينة بالزبدة المحمّرة، أطراف مقرمشة، قلب طري، وقطع كبيرة من الشوكولاتة الداكنة." },
+    { id: "double",    name: "فادج الشوكولاتة المزدوجة", price: 50, category: "chocolate", tint: "#f3d3b5",
+      desc: "عجينة كاكاو غنية محشوة بقطع الشوكولاتة، مع رشّة من ملح البحر." },
+    { id: "oat",       name: "الشوفان والزبيب",          price: 40, category: "classic",   tint: "#f6e6c2",
+      desc: "شوفان طري، وزبيب ممتلئ، ولمسة دافئة من القرفة. المفضّلة عند الجدّة." },
+    { id: "pb",        name: "زبدة الفول السوداني",       price: 45, category: "classic",   tint: "#fbe2b8",
+      desc: "كوكيز كريمية بزبدة الفول السوداني، بنقشة الشوكة الكلاسيكية وقطع فول سوداني مقرمشة." },
+    { id: "dates",     name: "التمر والجوز",              price: 45, category: "special",   badge: "نكهة البيت", tint: "#f4dcb8",
+      desc: "تمر طري، وجوز محمّص، ولمسة قرفة. طعم البيت الأصيل في كل قضمة." },
+    { id: "redvelvet", name: "ريد فلفت بالشوكولاتة البيضاء", price: 50, category: "special", badge: "جديد", tint: "#f9d6cf",
+      desc: "كوكيز ريد فلفت طرية مرصّعة برقائق الشوكولاتة البيضاء الكريمية." },
+    { id: "smores",    name: "سمورز بالمارشملو",          price: 55, category: "chocolate", badge: "نهاية الأسبوع فقط", tint: "#f2dcc0",
+      desc: "كوكيز محشوة بالمارشملو المحمّص وشوكولاتة الحليب." },
+    { id: "pistachio", name: "الفستق والهيل",             price: 55, category: "special",   badge: "موسمي", tint: "#e6ecc8",
+      desc: "فستق محمّص، ولمسة من الهيل، وخيوط من الشوكولاتة البيضاء." },
   ];
 
   /* ---------- Cookie illustration styles ---------- */
@@ -43,6 +43,7 @@
     pb:        { dough: ["#e9ad62", "#b67533"], chip: "#c98c45", chips: 0, crosshatch: true, nuts: 6 },
     redvelvet: { dough: ["#b3313a", "#7a1a22"], chip: "#fff6ea", chips: 9 },
     sugar:     { dough: ["#f6dca8", "#d8ac6b"], chip: "#000", chips: 0, sprinkles: 26 },
+    dates:     { dough: ["#e2b373", "#a96d32"], chip: "#5a2a12", chips: 7, nuts: 5 },
     smores:    { dough: ["#d99a55", "#9d6128"], chip: "#3a1a0a", chips: 5, marshmallow: true },
     pistachio: { dough: ["#ead59c", "#bf9f5c"], chip: "#7c9a3c", chips: 0, nuts: 9, drizzle: true },
   };
@@ -161,7 +162,7 @@
     if (s.nuts) {
       for (let i = 0; i < s.nuts; i++) {
         const p = randomPointInCircle(rand, 32);
-        const fill = kind === "pistachio" ? (i % 2 ? "#8aa84a" : "#a9c063") : "#c98c45";
+        const fill = kind === "pistachio" ? (i % 2 ? "#8aa84a" : "#a9c063") : kind === "dates" ? "#c9a06a" : "#c98c45";
         out += '<path d="' + blobPath(rand, p[0], p[1], 2.8, 1.6, 6) + '" fill="' + fill + '" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>';
       }
     }
@@ -198,7 +199,7 @@
   }
 
   /* ---------- Helpers ---------- */
-  const money = new Intl.NumberFormat(undefined, { style: "currency", currency: SHOP.currency });
+  const money = { format: function (n) { return n.toLocaleString("en-US") + " " + SHOP.currency; } };
   const $ = function (sel, root) { return (root || document).querySelector(sel); };
   const byId = function (id) { return COOKIES.find(function (c) { return c.id === id; }); };
   function escapeHTML(str) {
@@ -227,9 +228,9 @@
           "<h3>" + escapeHTML(c.name) + "</h3>" +
           "<p>" + escapeHTML(c.desc) + "</p>" +
           '<div class="card-foot">' +
-            '<p class="price">' + money.format(c.price) + "<small>box of 6</small></p>" +
-            '<button type="button" class="btn btn-primary add-btn" data-add="' + c.id + '" aria-label="Add a box of ' +
-              escapeHTML(c.name) + ' to your cookie box">Add</button>' +
+            '<p class="price">' + money.format(c.price) + "<small>علبة 6 حبات</small></p>" +
+            '<button type="button" class="btn btn-primary add-btn" data-add="' + c.id + '" aria-label="أضف علبة ' +
+              escapeHTML(c.name) + ' إلى السلة">أضف</button>' +
           "</div>" +
         "</li>"
       );
@@ -240,8 +241,8 @@
       if (!btn) return;
       addToCart(btn.getAttribute("data-add"));
       btn.classList.add("added");
-      btn.textContent = "Added";
-      setTimeout(function () { btn.classList.remove("added"); btn.textContent = "Add"; }, 1200);
+      btn.textContent = "تمت الإضافة";
+      setTimeout(function () { btn.classList.remove("added"); btn.textContent = "أضف"; }, 1200);
     });
   }
 
@@ -283,7 +284,7 @@
     renderCart();
     const count = $("#cart-count");
     count.classList.remove("bump"); void count.offsetWidth; count.classList.add("bump");
-    toast("Added " + byId(id).name + " to your box");
+    toast("تمت إضافة " + byId(id).name + " إلى سلتك");
   }
   function setQty(id, qty) {
     if (qty <= 0) delete cart[id]; else cart[id] = Math.min(qty, 50);
@@ -298,18 +299,18 @@
     if (!lines.length) {
       list.innerHTML =
         '<li class="cart-empty"><div class="cookie-empty" aria-hidden="true">' + cookieSVG("classic") + "</div>" +
-        "<p>Your cookie box is empty.<br>Add a few treats from the menu!</p></li>";
+        "<p>سلتك فارغة.<br>أضف بعض الكوكيز من القائمة!</p></li>";
     } else {
       list.innerHTML = lines.map(function (l) {
         return (
           '<li class="cart-item">' +
             '<span class="thumb" aria-hidden="true">' + cookieSVG(l.item.id) + "</span>" +
             "<div><div class=\"cart-item-name\">" + escapeHTML(l.item.name) + "</div>" +
-            '<div class="cart-item-price">' + money.format(l.item.price) + " per box</div></div>" +
-            '<div class="qty" role="group" aria-label="Quantity of ' + escapeHTML(l.item.name) + '">' +
-              '<button type="button" data-dec="' + l.item.id + '" aria-label="Remove one box">−</button>' +
+            '<div class="cart-item-price">' + money.format(l.item.price) + " للعلبة</div></div>" +
+            '<div class="qty" role="group" aria-label="كمية ' + escapeHTML(l.item.name) + '">' +
+              '<button type="button" data-dec="' + l.item.id + '" aria-label="إنقاص علبة">−</button>' +
               "<output>" + l.qty + "</output>" +
-              '<button type="button" data-inc="' + l.item.id + '" aria-label="Add one box">+</button>' +
+              '<button type="button" data-inc="' + l.item.id + '" aria-label="إضافة علبة">+</button>' +
             "</div>" +
           "</li>"
         );
@@ -325,15 +326,15 @@
     const box = $("#order-summary");
     const lines = cartLines();
     if (!lines.length) {
-      box.innerHTML = '<p class="empty">Your box is empty. <a href="#menu">Pick some cookies</a> first.</p>';
+      box.innerHTML = '<p class="empty">سلتك فارغة. <a href="#menu">اختر بعض الكوكيز</a> أولًا.</p>';
       return;
     }
     box.innerHTML =
-      "<h3>Your box</h3><ul>" +
+      "<h3>طلبك</h3><ul>" +
       lines.map(function (l) {
         return "<li><span>" + l.qty + " × " + escapeHTML(l.item.name) + "</span><span>" + money.format(l.qty * l.item.price) + "</span></li>";
       }).join("") +
-      '<li class="sum-total"><span>Total</span><span>' + money.format(cartTotal()) + "</span></li></ul>";
+      '<li class="sum-total"><span>المجموع</span><span>' + money.format(cartTotal()) + "</span></li></ul>";
   }
 
   /* ---------- Cart drawer ---------- */
@@ -403,11 +404,11 @@
     dateInput.min = isoDate(tomorrow);
 
     const rules = {
-      name: function (v) { return v.trim().length >= 2 ? "" : "Please tell us your name."; },
-      phone: function (v) { return v.replace(/\D/g, "").length >= 7 ? "" : "Please enter a phone number we can text."; },
+      name: function (v) { return v.trim().length >= 2 ? "" : "من فضلك اكتب اسمك."; },
+      phone: function (v) { return v.replace(/\D/g, "").length >= 7 ? "" : "من فضلك أدخل رقم جوال صحيح."; },
       date: function (v) {
-        if (!v) return "Please choose a day for your cookies.";
-        return v >= dateInput.min ? "" : "Please order at least one day ahead.";
+        if (!v) return "من فضلك اختر يومًا لطلبك.";
+        return v >= dateInput.min ? "" : "يجب أن يكون الطلب قبل يوم واحد على الأقل.";
       },
     };
 
@@ -438,34 +439,34 @@
       const firstBad = Object.keys(rules).find(function (n, i) { return !results[i]; });
       if (firstBad) { form.elements[firstBad].focus(); status.textContent = ""; return; }
       if (!cartCount()) {
-        status.textContent = "Your cookie box is empty. Add some cookies first.";
+        status.textContent = "سلتك فارغة. أضف بعض الكوكيز أولًا.";
         status.classList.add("bad");
         return;
       }
 
       const data = new FormData(form);
       const lines = cartLines().map(function (l) {
-        return "- " + l.qty + " x " + l.item.name + " (" + money.format(l.qty * l.item.price) + ")";
+        return "- " + l.qty + " × " + l.item.name + " (" + money.format(l.qty * l.item.price) + ")";
       });
       const body = [
-        "Hello " + SHOP.name + "!",
+        "مرحبًا " + SHOP.name + "!",
         "",
-        "I'd like to order:",
+        "أرغب في طلب:",
         lines.join("\n"),
-        "Total: " + money.format(cartTotal()),
+        "المجموع: " + money.format(cartTotal()),
         "",
-        "Name: " + data.get("name"),
-        "Phone: " + data.get("phone"),
-        "Date: " + data.get("date"),
-        "Method: " + data.get("method"),
-        data.get("notes") ? "Notes: " + data.get("notes") : "",
+        "الاسم: " + data.get("name"),
+        "الجوال: " + data.get("phone"),
+        "التاريخ: " + data.get("date"),
+        "الطريقة: " + data.get("method"),
+        data.get("notes") ? "ملاحظات: " + data.get("notes") : "",
       ].join("\n");
 
       const href = "mailto:" + SHOP.orderEmail +
-        "?subject=" + encodeURIComponent("Cookie order from " + data.get("name")) +
+        "?subject=" + encodeURIComponent("طلب كوكيز من " + data.get("name")) +
         "&body=" + encodeURIComponent(body);
 
-      status.textContent = "Thank you! Your email app is opening with your order. Just press send.";
+      status.textContent = "شكرًا لك! سيُفتح تطبيق البريد وفيه طلبك جاهزًا، فقط اضغط إرسال.";
       status.classList.add("ok");
       window.location.href = href;
     });
@@ -483,7 +484,7 @@
     function setMenu(open) {
       list.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", String(open));
-      toggle.querySelector(".visually-hidden").textContent = open ? "Close menu" : "Open menu";
+      toggle.querySelector(".visually-hidden").textContent = open ? "إغلاق القائمة" : "فتح القائمة";
     }
     toggle.addEventListener("click", function () { setMenu(!list.classList.contains("is-open")); });
     list.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });

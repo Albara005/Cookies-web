@@ -1,31 +1,32 @@
-# Home Crumbs: homemade cookie website
+# كوكيز البيت: موقع كوكيز منزلية
 
-A one-page website for a small home bakery that sells homemade cookies.
+موقع من صفحة واحدة لمخبز منزلي صغير يبيع الكوكيز. الموقع بالعربية وباتجاه من اليمين إلى اليسار.
 
-- **No build step.** Plain HTML, CSS and JavaScript. Open `index.html` in a browser, or upload the folder to any static host (GitHub Pages, Netlify, Vercel).
-- **Hand-drawn cookies.** Every cookie illustration is an SVG drawn in code, so the site needs no image files. You can swap in real photos later.
-- **Cookie box (cart).** Visitors add boxes of 6, change quantities, and the box is remembered in their browser.
-- **Order form.** It checks name, phone and date (at least one day ahead), then opens the visitor's email app with the whole order already written.
-- Works on phones, tablets and desktops. It supports keyboard navigation and screen readers, and respects reduced-motion settings.
+- **بدون أي تثبيت أو بناء.** HTML و CSS و JavaScript فقط. افتح `index.html` في المتصفح، أو ارفع المجلد على أي استضافة مجانية (GitHub Pages أو Netlify أو Vercel).
+- **رسومات كوكيز مرسومة بالكود** (SVG)، فلا يحتاج الموقع إلى أي صور. يمكنك استبدالها بصور حقيقية لاحقًا.
+- **سلة الطلب.** يضيف الزائر علبًا من 6 حبات ويغيّر الكميات، وتُحفظ السلة في متصفحه.
+- **نموذج الطلب.** يتحقق من الاسم ورقم الجوال والتاريخ (قبل يوم على الأقل)، ثم يفتح تطبيق البريد عند الزائر وفيه الطلب مكتوبًا كاملًا.
+- يعمل على الجوال والتابلت والكمبيوتر، ويدعم التنقل بلوحة المفاتيح وقارئات الشاشة، ويحترم إعداد تقليل الحركة.
 
-## Files
+## الملفات
 
-| File | What it is |
-|------|------------|
-| `index.html` | Page content: hero, menu, story, how-to-order, reviews, order form |
-| `styles.css` | All styling. Colours and fonts are variables at the top (`:root`) |
-| `script.js`  | Cookie drawings, menu, cart and order form |
+| الملف | المحتوى |
+|------|---------|
+| `index.html` | نصوص الصفحة: الواجهة، القائمة، قصتنا، طريقة الطلب، الآراء، نموذج الطلب |
+| `styles.css` | التصميم. الألوان والخطوط متغيرات في أعلى الملف (`:root`) |
+| `script.js`  | رسومات الكوكيز، القائمة، السلة، نموذج الطلب |
 
-## Make it yours
+## خصّصه لمشروعك
 
-1. **Your email:** in `script.js`, change `orderEmail` in the `SHOP` settings at the top.
-2. **Your cookies and prices:** edit the `COOKIES` list in `script.js`. Each entry has a name, a price per box, a category (`classic`, `chocolate` or `special`), a description and an optional badge.
-3. **Shop name, hours, delivery area:** edit the text in `index.html`. Search for "Home Crumbs" and for the "Baking days" section.
-4. **Colours:** change the `--color-*` variables at the top of `styles.css`.
+1. **بريدك الإلكتروني:** في `script.js` غيّر `orderEmail` في إعدادات `SHOP` أعلى الملف.
+2. **العملة:** في نفس المكان غيّر `currency` (الافتراضي `ر.س`، مثلًا `ر.ع` أو `د.إ` أو `د.ك`).
+3. **الأصناف والأسعار:** عدّل قائمة `COOKIES` في `script.js`. لكل صنف اسم وسعر للعلبة وتصنيف (`classic` أو `chocolate` أو `special`) ووصف وشارة اختيارية.
+4. **اسم المحل والأوقات ومنطقة التوصيل:** عدّل النصوص في `index.html`. ابحث عن «كوكيز البيت» وعن قسم «أيام الخَبز».
+5. **آراء العملاء:** الآراء الحالية أمثلة فقط، استبدلها بآراء حقيقية قبل النشر.
 
-## Run locally
+## التشغيل محليًا
 
 ```bash
 python3 -m http.server 8000
-# then open http://localhost:8000
+# ثم افتح http://localhost:8000
 ```

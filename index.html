@@ -2,188 +2,131 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>كوكيز البيت | كوكيز منزلية تُخبز طازجة كل يوم</title>
-  <meta name="description" content="كوكيز منزلية بكميات صغيرة، تُخبز طازجة في مطبخ بيتنا. اطلبها بالعلبة للاستلام أو التوصيل." />
-  <meta name="theme-color" content="#92400E" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23D69A55'/%3E%3Ccircle cx='22' cy='24' r='4' fill='%234A2511'/%3E%3Ccircle cx='38' cy='20' r='3' fill='%234A2511'/%3E%3Ccircle cx='40' cy='38' r='4' fill='%234A2511'/%3E%3Ccircle cx='24' cy='42' r='3' fill='%234A2511'/%3E%3C/svg%3E" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>كوكيز البيت</title>
+  <meta name="description" content="ثماني نكهات من الكوكيز المنزلية، تُخبز صباح يوم الاستلام في مطبخ بيتنا." />
+  <meta name="theme-color" content="#d8a468" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Lalezar: خط العناوين. خط النصوص Lyon Arabic يُحمَّل من مجلد fonts/، و Noto Naskh Arabic بديل مجاني له -->
+  <!-- Lalezar: العناوين. خط النصوص Lyon Arabic من مجلد fonts/ و Noto Naskh Arabic بديل مجاني له -->
   <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
-<body>
-  <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
+<body class="locked">
+  <canvas id="gl" aria-hidden="true"></canvas>
+
+  <!-- ============ المقدّمة ============ -->
+  <div id="intro" aria-hidden="true">
+    <div class="stamp">
+      <span class="stamp-mark" data-cookie="classic"></span>
+      <span class="stamp-word">كوكيز البيت</span>
+    </div>
+    <button type="button" class="skip" id="skip">تخطَّ المقدّمة</button>
+  </div>
 
   <!-- ============ الترويسة ============ -->
-  <header class="site-header" id="top">
-    <div class="container header-inner">
-      <a href="#top" class="brand" aria-label="كوكيز البيت، العودة إلى الأعلى">
-        <span class="brand-mark" aria-hidden="true" data-cookie="classic" data-size="40"></span>
-        <span class="brand-name">كوكيز البيت</span>
-      </a>
+  <header class="nav" id="nav">
+    <a class="brand" href="#flavors" aria-label="كوكيز البيت، العودة إلى الأعلى">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" width="36" height="36"><circle cx="18" cy="18" r="18" fill="currentColor"/><path class="mark-cookie" d="M18 7a11 11 0 1 0 10.6 8.2 3.4 3.4 0 0 1-4.3-3.6A3.4 3.4 0 0 1 20.6 7.2 11 11 0 0 0 18 7z"/><circle class="mark-chip" cx="14" cy="15" r="1.6"/><circle class="mark-chip" cx="20" cy="21" r="1.8"/><circle class="mark-chip" cx="13.5" cy="22" r="1.3"/><circle class="mark-chip" cx="23.5" cy="16.5" r="1.2"/></svg>
+      </span>
+      <span class="word">كوكيز البيت</span>
+    </a>
 
-      <nav class="main-nav" aria-label="القائمة الرئيسية">
-        <ul id="nav-list">
-          <li><a href="#menu">الكوكيز</a></li>
-          <li><a href="#story">مطبخنا</a></li>
-          <li><a href="#how">طريقة الطلب</a></li>
-          <li><a href="#reviews">آراء العملاء</a></li>
-          <li><a href="#order">تواصل معنا</a></li>
-        </ul>
-      </nav>
+    <nav class="pill" id="pill" aria-label="أقسام الصفحة">
+      <span class="hl" aria-hidden="true"></span>
+      <a href="#flavors" data-sec="flavors">النكهات</a>
+      <a href="#inside" data-sec="inside">من الداخل</a>
+      <a href="#shop" data-sec="shop">المتجر</a>
+      <a href="#range" data-sec="range">علبتك</a>
+      <a href="#order" data-sec="order">اطلب</a>
+    </nav>
 
-      <div class="header-actions">
-        <button class="cart-button" type="button" aria-controls="cart" aria-expanded="false" id="cart-open">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path d="M6 6h15l-1.5 9h-12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 6 5 3H2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/></svg>
-          <span>السلة</span>
-          <span class="cart-count" id="cart-count" aria-live="polite">0</span>
-          <span class="visually-hidden">علب في سلتك</span>
-        </button>
-        <button class="menu-toggle" type="button" aria-controls="nav-list" aria-expanded="false" id="menu-toggle">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <span class="visually-hidden">فتح القائمة</span>
-        </button>
-      </div>
+    <div class="nav-actions">
+      <button type="button" class="basket" id="cart-open" aria-controls="cart" aria-expanded="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="M5 8h14l-1.3 11.2a1 1 0 0 1-1 .8H7.3a1 1 0 0 1-1-.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span class="badge" id="cart-count" aria-live="polite">0</span>
+        <span class="visually-hidden">السلة</span>
+      </button>
+      <a class="cta" href="#order">اطلب الآن</a>
     </div>
   </header>
 
   <main id="main">
-    <!-- ============ الواجهة ============ -->
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <p class="eyebrow">
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="currentColor"/></svg>
-            مخبوزة في مطبخ بيتنا
-          </p>
-          <h1>كوكيز طريّة ودافئة، <span class="highlight">مصنوعة بالحب في البيت.</span></h1>
-          <p class="lead">زبدة حقيقية، وسكر بني، والكثير من الحب. كل دفعة نعجنها ونشكّلها ونخبزها بأيدينا حسب الطلب وبكميات صغيرة، لا من خطوط المصانع.</p>
-          <div class="hero-ctas">
-            <a href="#menu" class="btn btn-primary">تصفّح الكوكيز</a>
-            <a href="#how" class="btn btn-ghost">كيف تطلب؟</a>
-          </div>
-          <ul class="hero-facts" aria-label="لماذا كوكيزنا">
-            <li><strong>100%</strong><span>صنع منزلي</span></li>
-            <li><strong>طازجة</strong><span>تُخبز يوم الاستلام</span></li>
-            <li><strong>بدون</strong><span>مواد حافظة</span></li>
-          </ul>
-        </div>
+    <!-- ============ 1. النكهات (الواجهة) ============ -->
+    <section id="flavors" class="hero" aria-label="النكهات">
+      <div class="reveal" id="reveal"></div>
+      <div class="rings" aria-hidden="true"></div>
+      <div class="bits" id="bits" aria-hidden="true"></div>
+      <div class="arc" id="arc" role="group" aria-roledescription="عرض دوّار" aria-label="اسحب أو اضغط على كوكيز لاختيار النكهة"></div>
+      <div class="hero-fallback" id="heroFallback" aria-hidden="true"></div>
 
-        <div class="hero-art" aria-hidden="true">
-          <div class="plate">
-            <span class="hero-cookie c1" data-cookie="classic" data-size="260"></span>
-            <span class="hero-cookie c2" data-cookie="double" data-size="170"></span>
-            <span class="hero-cookie c3" data-cookie="oat" data-size="130"></span>
-          </div>
-          <div class="sticker">
-            <span>طازجة</span>
-            <strong>من الفرن مباشرة</strong>
-          </div>
+      <button type="button" id="play" aria-label="النكهة التالية">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h1 id="title" class="disp" aria-live="polite"></h1>
+      <div id="count" class="disp" aria-hidden="true">01</div>
+      <button type="button" id="auto" aria-pressed="true">
+        <span class="auto-ring" aria-hidden="true">
+          <svg class="g-pause" viewBox="0 0 12 12"><rect x="2.5" y="2" width="2.4" height="8" rx="1.2"/><rect x="7.1" y="2" width="2.4" height="8" rx="1.2"/></svg>
+          <svg class="g-play" viewBox="0 0 12 12"><path d="M9.5 6 3.5 9.6V2.4z"/></svg>
+        </span>
+        <span>تشغيل تلقائي</span>
+      </button>
+    </section>
+
+    <!-- ============ 2. من الداخل (مثبّت) ============ -->
+    <section id="inside" aria-label="من الداخل">
+      <div class="pin">
+        <div class="in-dark" id="inDark"></div>
+        <div class="frame frame-back">
+          <div class="in-num disp" id="inNum" aria-hidden="true">01</div>
+          <div id="inBar"></div>
         </div>
       </div>
     </section>
 
-    <!-- ============ القائمة ============ -->
-    <section class="section" id="menu" aria-labelledby="menu-title">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">قائمتنا</p>
-          <h2 id="menu-title">كوكيز هذا الأسبوع</h2>
-          <p class="section-sub">تُباع في علب من 6 حبات. نوّع النكهات في سلتك كما تحب.</p>
-        </div>
-
-        <div class="filters" role="group" aria-label="تصفية الكوكيز">
-          <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">الكل</button>
-          <button type="button" class="chip" data-filter="classic" aria-pressed="false">الكلاسيكية</button>
-          <button type="button" class="chip" data-filter="chocolate" aria-pressed="false">لعشّاق الشوكولاتة</button>
-          <button type="button" class="chip" data-filter="special" aria-pressed="false">المميّزة</button>
-        </div>
-
-        <ul class="cookie-grid" id="cookie-grid">
-          <!-- تُعرض من قائمة COOKIES في script.js -->
-        </ul>
-      </div>
+    <!-- ============ 3. المتجر ============ -->
+    <section id="shop" aria-labelledby="shop-title">
+      <h2 class="disp lines" id="shop-title"><span class="ln"><span>اختر</span></span><span class="ln"><span>علبتك</span></span></h2>
+      <p class="shop-cap">ثماني نكهات منزلية، بنفس<br />المكوّنات الحقيقية. اختر المفضّلة<br />أو جرّبها كلها.</p>
+      <ul class="cards" id="cards"></ul>
     </section>
 
-    <!-- ============ قصتنا ============ -->
-    <section class="section story" id="story" aria-labelledby="story-title">
-      <div class="container story-inner">
-        <div class="story-art" aria-hidden="true">
-          <div class="recipe-card">
-            <p class="recipe-title">وصفة جدّتي</p>
-            <ul>
-              <li>كوبان من الدقيق</li>
-              <li>كوب زبدة طبيعية طريّة</li>
-              <li>كوب سكر بني</li>
-              <li>بيضتان طازجتان</li>
-              <li>فانيلا ورشّة ملح</li>
-              <li>رقائق شوكولاتة… كثير منها</li>
-            </ul>
-            <span class="recipe-cookie" data-cookie="classic" data-size="120"></span>
-          </div>
-        </div>
-        <div class="story-copy">
-          <p class="eyebrow">مطبخنا</p>
-          <h2 id="story-title">بدأت الحكاية بوصفة عائلية واحدة</h2>
-          <p>كوكيز البيت مخبز منزلي صغير. بدأ بخَبزٍ في عطلات نهاية الأسبوع للأهل والجيران، ثم تحوّل إلى مشروع كوكيز صغير نديره من نفس طاولة المطبخ التي تعلّمنا عليها الخَبز.</p>
-          <p>وما زلنا نصنع كل شيء بأيدينا: نحمّر الزبدة، ونترك العجينة ترتاح ليلة كاملة لنكهة أعمق، ونخبز كل صينية بأنفسنا. وإذا لم تكن الدفعة مثالية، فلن تصل إلى علبتك.</p>
-          <ul class="values">
-            <li>
-              <span class="value-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6C19 16.5 12 21 12 21z" fill="currentColor"/></svg></span>
-              <div><strong>مصنوعة بحب</strong><span>كميات صغيرة، تُشكَّل باليد في كل مرة.</span></div>
-            </li>
-            <li>
-              <span class="value-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 21c0-9 5-15 15-17-1 10-7 15-15 17zM5 21l7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              <div><strong>مكوّنات حقيقية</strong><span>زبدة وبيض وشوكولاتة فاخرة. لا شيء صناعي.</span></div>
-            </li>
-            <li>
-              <span class="value-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-              <div><strong>تُخبز حسب الطلب</strong><span>نخبزها في نفس يوم استلامك.</span></div>
-            </li>
-          </ul>
-        </div>
+    <!-- ============ 4. اصنع علبتك ============ -->
+    <section id="range" aria-labelledby="range-title">
+      <div class="range-col">
+        <h2 class="disp lines" id="range-title">
+          <span class="ln"><span>اصنع علبتك</span></span>
+          <span class="ln"><span>من <b class="three">3</b> نكهات</span></span>
+          <span class="ln"><span>بـ 45 ر.س فقط</span></span>
+        </h2>
+        <p class="range-sub">علبة مشكّلة من 6 حبات: حبّتان من كل نكهة تختارها.</p>
+        <ul class="thumbs" id="thumbs" aria-label="أضف نكهة إلى علبتك"></ul>
+        <button type="button" class="buy" id="buy" disabled>
+          <span class="buy-label">اختر 3 نكهات</span>
+          <span class="buy-price">45 ر.س</span>
+        </button>
       </div>
-    </section>
-
-    <!-- ============ طريقة الطلب ============ -->
-    <section class="section how" id="how" aria-labelledby="how-title">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">ثلاث خطوات فقط</p>
-          <h2 id="how-title">كيف تطلب؟</h2>
-        </div>
-        <ol class="steps">
-          <li class="step">
-            <span class="step-num" aria-hidden="true">1</span>
-            <h3>املأ سلتك</h3>
-            <p>اختر نكهاتك المفضّلة من القائمة، ونوّع بينها كما تحب.</p>
-          </li>
-          <li class="step">
-            <span class="step-num" aria-hidden="true">2</span>
-            <h3>أرسل طلبك</h3>
-            <p>اكتب اسمك، واختر الاستلام أو التوصيل واليوم المناسب لك. نؤكّد طلبك خلال ساعات.</p>
-          </li>
-          <li class="step">
-            <span class="step-num" aria-hidden="true">3</span>
-            <h3>استمتع بها دافئة</h3>
-            <p>استلمها من باب بيتنا أو اطلب التوصيل، مخبوزة صباح نفس اليوم ورائحة الفرن ما زالت فيها.</p>
-          </li>
-        </ol>
-        <div class="center">
-          <a href="#menu" class="btn btn-primary">ابدأ طلبك</a>
-        </div>
+      <div class="glow" id="glow">
+        <div class="slot" data-slot="0"></div>
+        <div class="slot" data-slot="1"></div>
+        <div class="slot" data-slot="2"></div>
       </div>
     </section>
 
     <!-- ============ آراء العملاء ============ -->
     <section class="section" id="reviews" aria-labelledby="reviews-title">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">كلام يفرّحنا</p>
-          <h2 id="reviews-title">ماذا يقول جيراننا</h2>
-        </div>
+        <h2 class="disp sec-title" id="reviews-title">ماذا يقول جيراننا</h2>
         <ul class="reviews">
           <li class="review">
             <div class="stars" aria-label="5 من 5 نجوم"></div>
@@ -209,25 +152,13 @@
       <div class="container order-inner">
         <div class="order-info">
           <p class="eyebrow">اطلب الآن</p>
-          <h2 id="order-title">جاهز لشيء حلو؟</h2>
-          <p>املأ النموذج وسنتواصل معك لتأكيد الطلب وموعد الاستلام.</p>
+          <h2 class="disp sec-title" id="order-title">جاهز لشيء حلو؟</h2>
+          <p>املأ النموذج، ثم انسخ طلبك وأرسله لنا. سنتواصل معك لتأكيد الطلب وموعد الاستلام.</p>
           <dl class="info-list">
-            <div>
-              <dt>أيام الخَبز</dt>
-              <dd>من الأربعاء إلى السبت</dd>
-            </div>
-            <div>
-              <dt>أوقات الاستلام</dt>
-              <dd>10 صباحًا – 6 مساءً</dd>
-            </div>
-            <div>
-              <dt>الطلب المسبق</dt>
-              <dd>قبل يوم واحد على الأقل</dd>
-            </div>
-            <div>
-              <dt>التوصيل</dt>
-              <dd>مجاني ضمن 5 كم للطلبات من علبتين فأكثر</dd>
-            </div>
+            <div><dt>أيام الخَبز</dt><dd>من الأربعاء إلى السبت</dd></div>
+            <div><dt>أوقات الاستلام</dt><dd>10 صباحًا – 6 مساءً</dd></div>
+            <div><dt>الطلب المسبق</dt><dd>قبل يوم واحد على الأقل</dd></div>
+            <div><dt>التوصيل</dt><dd>مجاني ضمن 5 كم للطلبات من علبتين فأكثر</dd></div>
           </dl>
         </div>
 
@@ -264,40 +195,55 @@
 
           <div class="order-summary" id="order-summary" aria-live="polite"></div>
 
-          <button type="submit" class="btn btn-primary btn-block">أرسل طلبي</button>
+          <button type="submit" class="btn btn-primary btn-block">جهّز طلبي</button>
           <p class="form-status" id="form-status" role="status"></p>
+          <div class="order-out" id="order-out" hidden>
+            <label for="order-text">نص طلبك</label>
+            <textarea id="order-text" rows="9" readonly></textarea>
+            <div class="order-out-actions">
+              <button type="button" class="btn btn-primary" id="copy-order">نسخ الطلب</button>
+              <a class="btn btn-ghost" id="mail-order" href="#">فتح تطبيق البريد</a>
+            </div>
+            <p class="hint">أرسله إلى: <strong class="shop-mail" id="shop-mail" dir="ltr"></strong></p>
+          </div>
         </form>
       </div>
     </section>
   </main>
 
-  <!-- ============ التذييل ============ -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <a href="#top" class="brand brand-footer">
-          <span class="brand-mark" aria-hidden="true" data-cookie="classic" data-size="36"></span>
-          <span class="brand-name">كوكيز البيت</span>
+        <a href="#flavors" class="brand brand-footer">
+          <span class="footer-mark" aria-hidden="true" data-cookie="classic"></span>
+          <span class="word">كوكيز البيت</span>
         </a>
         <p>كوكيز منزلية، مخبوزة بحب في مطبخ بيت صغير.</p>
       </div>
-      <nav aria-label="روابط التذييل">
-        <ul class="footer-links">
-          <li><a href="#menu">الكوكيز</a></li>
-          <li><a href="#story">مطبخنا</a></li>
-          <li><a href="#how">طريقة الطلب</a></li>
-          <li><a href="#order">تواصل معنا</a></li>
-        </ul>
-      </nav>
       <p class="small">تُحضَّر في مطبخ منزلي يتعامل أيضًا مع المكسّرات والألبان والبيض والقمح.<br />© <span id="year"></span> كوكيز البيت</p>
     </div>
   </footer>
+
+  <!-- الطبقة الأمامية لقسم «من الداخل»: فوق لوحة الرسم ثلاثية الأبعاد -->
+  <div id="inFront">
+    <div class="frame frame-front" id="inFrontFrame">
+      <h2 class="in-head disp" id="inHead"></h2>
+      <div class="in-icons" id="inIcons">
+        <button type="button" data-step="0" aria-label="الخطوة 1: مكوّنات حقيقية"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 24V9M13 9c0-3 1.5-5.5 4-6.5.4 3-1 5.6-4 6.5zM13 14c-3 0-5.5-1.6-6.5-4 3-.4 5.6 1 6.5 4zM13 14c3 0 5.5-1.6 6.5-4-3-.4-5.6 1-6.5 4zM13 19c-3 0-5.5-1.6-6.5-4 3-.4 5.6 1 6.5 4zM13 19c3 0 5.5-1.6 6.5-4-3-.4-5.6 1-6.5 4z"/></svg></button>
+        <button type="button" data-step="1" aria-label="الخطوة 2: عجينة ترتاح ليلة كاملة"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M20.5 15.5A8.5 8.5 0 0 1 10.5 5.5a8.5 8.5 0 1 0 10 10z"/><path d="M18 4.5v3M16.5 6h3"/></svg></button>
+        <button type="button" data-step="2" aria-label="الخطوة 3: تُخبز صباح يوم الاستلام"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M5 18a8 8 0 0 1 16 0M2.5 18h21M13 4.5v3M5.4 8.6l2 2M20.6 8.6l-2 2M7 21.5h12"/></svg></button>
+        <button type="button" data-step="3" aria-label="الخطوة 4: نكهتك"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 22s-8-5-10.5-10A5.8 5.8 0 0 1 13 7a5.8 5.8 0 0 1 10.5 5C21 17 13 22 13 22z"/></svg></button>
+      </div>
+      <p class="in-cap" id="inCap"></p>
+    </div>
+    <div class="storm" id="storm" aria-hidden="true"></div>
+  </div>
 
   <!-- ============ السلة ============ -->
   <div class="cart-backdrop" id="cart-backdrop" hidden></div>
   <aside class="cart" id="cart" aria-labelledby="cart-title" aria-hidden="true" tabindex="-1">
     <div class="cart-head">
-      <h2 id="cart-title">سلة الكوكيز</h2>
+      <h2 id="cart-title" class="disp">سلة الكوكيز</h2>
       <button type="button" class="icon-btn" id="cart-close">
         <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         <span class="visually-hidden">إغلاق السلة</span>
@@ -312,6 +258,14 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="script.js"></script>
+  <!-- احتياط: إن لم يعمل السكربت لأي سبب، أظهر الصفحة بعد 9 ثوانٍ -->
+  <script>
+    setTimeout(function () {
+      if (window.__entered) return;
+      document.body.classList.remove("locked");
+      var i = document.getElementById("intro"); if (i) i.remove();
+    }, 9000);
+  </script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

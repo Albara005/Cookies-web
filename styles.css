@@ -1,7 +1,29 @@
 /* =========================================================
    Home Crumbs — homemade cookie shop
-   Design tokens: warm brown + cream, Baloo Bhaijaan 2 / Tajawal (Arabic, RTL)
+   Design tokens: warm brown + cream, Lyon Arabic (Arabic, RTL)
    ========================================================= */
+
+/* ---------- Lyon Arabic (Commercial Type, licensed font) ----------
+   Put your licensed web font files in the fonts/ folder with these names.
+   If the files are missing, the browser falls back to Noto Naskh Arabic. */
+@font-face {
+  font-family: "Lyon Arabic";
+  src: local("Lyon Arabic Text Regular"), local("LyonArabicText-Regular"),
+       url("fonts/LyonArabic-Regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Lyon Arabic";
+  src: local("Lyon Arabic Text Medium"), local("LyonArabicText-Medium"),
+       url("fonts/LyonArabic-Medium.woff2") format("woff2");
+  font-weight: 500 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Lyon Arabic";
+  src: local("Lyon Arabic Text Bold"), local("LyonArabicText-Bold"),
+       url("fonts/LyonArabic-Bold.woff2") format("woff2");
+  font-weight: 700 900; font-style: normal; font-display: swap;
+}
 :root {
   --color-primary: #92400e;
   --color-primary-hover: #7a350b;
@@ -19,8 +41,8 @@
   --color-error: #b91c1c;
   --color-success: #166534;
 
-  --font-display: "Baloo Bhaijaan 2", "Tajawal", system-ui, sans-serif;
-  --font-body: "Tajawal", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Lyon Arabic", "Noto Naskh Arabic", "Times New Roman", serif;
+  --font-body: "Lyon Arabic", "Noto Naskh Arabic", "Times New Roman", serif;
 
   --radius-sm: 10px;
   --radius-md: 18px;
@@ -67,12 +89,12 @@ img, svg { display: block; max-width: 100%; }
 h1, h2, h3 {
   font-family: var(--font-display);
   color: var(--color-heading);
-  line-height: 1.35;
+  line-height: 1.5;
   margin: 0 0 var(--space-4);
   text-wrap: balance;
 }
-h1 { font-size: clamp(2.3rem, 5.2vw, 3.8rem); font-weight: 800; }
-h2 { font-size: clamp(1.8rem, 3.8vw, 2.6rem); font-weight: 800; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; }
+h2 { font-size: clamp(1.75rem, 3.6vw, 2.5rem); font-weight: 700; }
 h3 { font-size: 1.35rem; font-weight: 600; }
 p { margin: 0 0 var(--space-4); }
 
@@ -514,7 +536,7 @@ a { color: var(--color-primary); }
 .order-summary h3 { font-size: 1.1rem; margin-bottom: var(--space-2); }
 .order-summary ul { list-style: none; margin: 0; padding: 0; }
 .order-summary li { display: flex; justify-content: space-between; gap: var(--space-3); padding: 2px 0; }
-.order-summary .sum-total { margin-top: var(--space-2); padding-top: var(--space-2); border-top: 2px solid var(--color-border); font-weight: 800; color: var(--color-heading); }
+.order-summary .sum-total { margin-top: var(--space-2); padding-top: var(--space-2); border-top: 2px solid var(--color-border); font-weight: 700; color: var(--color-heading); }
 .order-summary .empty { margin: 0; color: var(--color-muted-foreground); }
 .form-status { margin: var(--space-3) 0 0; font-weight: 700; text-align: center; }
 .form-status.ok { color: var(--color-success); }
@@ -569,10 +591,10 @@ a { color: var(--color-primary); }
 .qty button {
   width: 36px; height: 36px; border: 0; border-radius: 50%;
   background: transparent; color: var(--color-primary);
-  font-size: 1.2rem; font-weight: 800; cursor: pointer;
+  font-size: 1.2rem; font-weight: 700; cursor: pointer;
 }
 .qty button:hover { background: var(--color-accent-soft); }
-.qty output { min-width: 22px; text-align: center; font-weight: 800; }
+.qty output { min-width: 22px; text-align: center; font-weight: 700; }
 .cart-foot { padding: var(--space-4) var(--space-5) var(--space-5); border-top: 2px solid var(--color-border); background: var(--color-card); }
 .cart-total { display: flex; justify-content: space-between; align-items: baseline; font-size: 1.1rem; margin-bottom: var(--space-3); }
 .cart-total strong { font-family: var(--font-display); font-size: 1.6rem; color: var(--color-heading); }

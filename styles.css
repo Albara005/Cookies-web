@@ -84,11 +84,19 @@ a { color: inherit; }
 #intro {
   position: fixed; inset: 0; z-index: 100;
   display: grid; place-items: center;
-  background: var(--cream);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 46%, #f3cf98 0, #dca86a 40%, #a86d3c 100%);
   transition: opacity .35s ease, visibility .35s;
 }
 #intro.gone { opacity: 0; visibility: hidden; }
-.stamp { display: flex; align-items: center; gap: calc(28 * var(--u)); animation: stamp .38s ease-out both; }
+/* مسرح ثلاثي الأبعاد: القطع تنطلق من العمق نحو الشاشة */
+.burst { position: absolute; inset: 0; perspective: 900px; perspective-origin: 50% 48%; transform-style: preserve-3d; pointer-events: none; }
+.b3 { position: absolute; left: 50%; top: 48%; transform-style: preserve-3d; will-change: transform, opacity; }
+.b3 svg { width: 100%; height: 100%; }
+.b3.whole, .b3.wedge { filter: drop-shadow(0 24px 30px rgba(70, 35, 10, .35)); }
+.intro-cream { position: absolute; inset: 0; background: var(--cream); clip-path: circle(0 at 50% 48%); }
+.stamp { position: relative; z-index: 1; display: flex; align-items: center; gap: calc(28 * var(--u)); opacity: 0; }
+.stamp.show { animation: stamp .38s ease-out both; }
 .stamp-mark { width: max(84px, calc(120 * var(--u))); aspect-ratio: 1; display: block; }
 .stamp-word { font-family: var(--font-display); font-size: max(44px, calc(72 * var(--u))); line-height: 1.1; color: var(--ink); }
 @keyframes stamp {

@@ -355,6 +355,9 @@ let step = -1, flipAngle = 0, flip = null;
 let liveIdx = -1, stripCentred = false;
 let heroVis = 1;
 let GL = null;
+let glWarm = false; // ارسم إطارًا واحدًا خلف المقدّمة لتجهيز المحرك قبل الدخول
+let openGate;
+const introGate = new Promise((r) => { openGate = r; }); // يُفتح بعد انفجار المقدّمة
 
 /* =========================================================
    العنوان والعدّاد
@@ -609,6 +612,7 @@ async function initGL() {
       document.fonts.load('400 20px "Noto Naskh Arabic"'),
       document.fonts.load('700 20px "Noto Naskh Arabic"'),
     ]).catch(() => {});
+    await introGate; // العمل الثقيل ينتظر حتى تنتهي حركة المقدّمة
     const canvas = $("#gl");
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -625,7 +629,12 @@ async function initGL() {
 
     const geoF = surface(THREE, 1), geoB = surface(THREE, -1);
     const texF = [], texB = [];
-    for (let i = 0; i < N; i++) { const [a, b] = await cookieTextures(THREE, renderer, i); texF.push(a); texB.push(b); }
+    // نبني الأنسجة واحدًا تلو الآخر مع استراحة قصيرة، حتى لا تتقطّع حركة المقدّمة
+    for (let i = 0; i < N; i++) {
+      const [a, b] = await cookieTextures(THREE, renderer, i);
+      texF.push(a); texB.push(b);
+      await new Promise((r) => setTimeout(r, 30));
+    }
 
     const sc = document.createElement("canvas"); sc.width = sc.height = 128;
     const sx = sc.getContext("2d");
@@ -875,7 +884,8 @@ function frame(now) {
       GL.place(bar, st);
     }
     for (; pi < GL.pool.length; pi++) GL.place(GL.pool[pi], null);
-    GL.renderer.render(GL.scene, GL.camera);
+    // أثناء المقدّمة لا داعي للرسم: الشاشة مغطاة، والرسم يُبطئ حركة المقدّمة
+    if (entered || glWarm) { GL.renderer.render(GL.scene, GL.camera); glWarm = false; }
   }
 
   requestAnimationFrame(frame);
@@ -1370,9 +1380,111 @@ document.addEventListener("keydown", (e) => {
 /* =========================================================
    المقدّمة والدخول إلى الواجهة
    ========================================================= */
+/* ---------- المقدّمة: كوكيز تنكسر وتنطلق قطعها ومكوّناتها نحو الشاشة ---------- */
+const introTimers = [];
+const later = (fn, ms) => introTimers.push(setTimeout(fn, ms));
+function crumbSVG(seed) {
+  const r = rng(hashString("crumb" + seed));
+  const col = ["#e2ad68", "#d39a55", "#c98b48", "#eabf80"][Math.floor(r() * 4)];
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true"><path d="' +
+    blobPath(r, 50, 50, 34, 22, 7) + '" fill="' + col + '"/><path d="' + blobPath(r, 42, 40, 14, 8, 5) + '" fill="#fff" opacity=".18"/></svg>';
+}
+function playIntro() {
+  const burst = $("#burst");
+  const vmin = Math.min(vw, vh);
+  const S = Math.round(Math.min(vmin * 0.46, 400));
+  const R = rng(1124);
+  const piece = (html, size, cls) => {
+    const el = document.createElement("div");
+    el.className = "b3" + (cls ? " " + cls : "");
+    el.style.width = el.style.height = size + "px";
+    el.style.marginLeft = el.style.marginTop = -size / 2 + "px";
+    el.innerHTML = html;
+    burst.append(el);
+    return el;
+  };
+
+  // 1) كوكيز كاملة تأتي من العمق ثم ترتجف
+  const whole = piece(cookieSVG("classic"), S, "whole");
+  whole.animate([
+    { transform: "translateZ(-700px) rotate(-40deg)", opacity: 0 },
+    { transform: "translateZ(0) rotate(0deg)", opacity: 1, offset: 0.7 },
+    { transform: "translateZ(40px) rotate(4deg)", opacity: 1 },
+  ], { duration: 650, easing: "cubic-bezier(.2,.8,.3,1)", fill: "forwards" });
+  later(() => whole.animate([
+    { transform: "translateZ(40px) rotate(4deg)" },
+    { transform: "translateZ(40px) rotate(1deg) translateX(-5px)" },
+    { transform: "translateZ(40px) rotate(7deg) translateX(5px)" },
+    { transform: "translateZ(40px) rotate(2deg) translateX(-3px)" },
+    { transform: "translateZ(40px) rotate(4deg)" },
+  ], { duration: 240, fill: "forwards" }), 640);
+
+  // 2) تنكسر إلى 7 قطع (خطوط الكسر مشتركة بين القطع المتجاورة فتتطابق تمامًا)
+  later(() => {
+    const n = 7, start = R() * Math.PI * 2, span = (Math.PI * 2) / n;
+    const pt = (a, r) => f1(50 + Math.cos(a) * r) + "% " + f1(50 + Math.sin(a) * r) + "%";
+    const edges = Array.from({ length: n }, (_, i) => {
+      const a = start + i * span;
+      return [pt(a + (R() - 0.5) * 0.35, 18), pt(a + (R() - 0.5) * 0.3, 40), pt(a, 75)];
+    });
+    for (let i = 0; i < n; i++) {
+      const a0 = start + i * span;
+      const arc = [];
+      for (let k = 1; k < 4; k++) arc.push(pt(a0 + (span * k) / 4, 75));
+      const nextEdge = edges[(i + 1) % n].slice().reverse();
+      const poly = ["50% 50%"].concat(edges[i], arc, nextEdge);
+      const el = piece(cookieSVG("classic"), S, "wedge");
+      el.style.clipPath = "polygon(" + poly.join(",") + ")";
+      el.style.transform = "translateZ(40px) rotate(4deg)";
+      const mid = a0 + span / 2, dist = vmin * (0.55 + R() * 0.35);
+      const dur = 1500 + R() * 400;
+      el.animate([
+        { transform: "translateZ(40px) rotate(4deg)", opacity: 1 },
+        { opacity: 1, offset: 0.75 },
+        { transform: "translate3d(" + f1(Math.cos(mid) * dist) + "px," + f1(Math.sin(mid) * dist) + "px," + f1(520 + R() * 220) + "px) rotateX(" + f1((R() - 0.5) * 160) + "deg) rotateY(" + f1((R() - 0.5) * 160) + "deg) rotate(" + f1((R() - 0.5) * 120) + "deg)", opacity: 0 },
+      ], { duration: dur, easing: "cubic-bezier(.12,.7,.3,1)", fill: "forwards" });
+    }
+    whole.remove();
+  }, 880);
+
+  // 3) المكوّنات والفتات تنطلق نحو الشاشة على دفعات
+  const kinds = ["chip", "cocoa", "oat", "peanut", "pistachio", "date", "white", "marsh"];
+  const total = isPhone ? 26 : 40;
+  for (let i = 0; i < total; i++) {
+    const crumb = R() < 0.3;
+    const size = Math.round((crumb ? 0.05 + R() * 0.05 : 0.09 + R() * 0.1) * vmin);
+    const el = piece(crumb ? crumbSVG(i) : bitSVG(kinds[Math.floor(R() * kinds.length)], "intro" + i), size);
+    el.style.opacity = "0";
+    if (i % 3 === 0) el.style.filter = "blur(1.5px)";
+    const a = R() * Math.PI * 2, spread = vmin * (0.6 + R() * 0.9);
+    const z0 = -900 + R() * 700, z1 = 480 + R() * 320;
+    el.animate([
+      { transform: "translate3d(" + f1(Math.cos(a) * R() * 40) + "px," + f1(Math.sin(a) * R() * 40) + "px," + f1(z0) + "px)", opacity: 0 },
+      { opacity: 1, offset: 0.15 },
+      { opacity: 1, offset: 0.8 },
+      { transform: "translate3d(" + f1(Math.cos(a) * spread) + "px," + f1(Math.sin(a) * spread * 0.8) + "px," + f1(z1) + "px) rotateX(" + f1((R() - 0.5) * 720) + "deg) rotateY(" + f1((R() - 0.5) * 720) + "deg) rotate(" + f1((R() - 0.5) * 540) + "deg)", opacity: 0 },
+    ], { duration: 1400 + R() * 700, delay: 860 + R() * 950, easing: "cubic-bezier(.2,.6,.35,1)", fill: "both" });
+  }
+
+  // 4) دائرة كريمية تكبر من المركز، ثم يظهر ختم الشعار
+  later(() => {
+    const far = Math.hypot(vw, vh);
+    $("#introCream").animate([
+      { clipPath: "circle(0px at 50% 48%)" },
+      { clipPath: "circle(" + Math.round(far) + "px at 50% 48%)" },
+    ], { duration: 520, easing: "cubic-bezier(.25,.75,.2,1)", fill: "forwards" });
+    $("#stamp").classList.add("show");
+  }, 2650);
+  later(openGate, 2450);
+  later(() => { glWarm = true; }, 3100);
+  later(enterHero, 2650 + 380 + 650 + 120);
+}
+
 function enterHero() {
   if (entered) return;
   entered = true;
+  introTimers.forEach(clearTimeout);
+  openGate();
   window.__entered = true;
   intro.classList.add("gone");
   setTimeout(() => intro.remove(), 400);
@@ -1431,4 +1543,4 @@ requestAnimationFrame(frame);
 initGL();
 
 if (RM) enterHero();
-else setTimeout(enterHero, 1300);
+else playIntro();

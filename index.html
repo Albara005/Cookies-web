@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home Crumbs — Homemade Cookies, Baked Fresh at Home</title>
+  <meta name="description" content="Small-batch homemade cookies baked fresh in our home kitchen. Order by the dozen for pickup or local delivery." />
+  <meta name="theme-color" content="#92400E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23D69A55'/%3E%3Ccircle cx='22' cy='24' r='4' fill='%234A2511'/%3E%3Ccircle cx='38' cy='20' r='3' fill='%234A2511'/%3E%3Ccircle cx='40' cy='38' r='4' fill='%234A2511'/%3E%3Ccircle cx='24' cy='42' r='3' fill='%234A2511'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ Header ============ -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#top" class="brand" aria-label="Home Crumbs, back to top">
+        <span class="brand-mark" aria-hidden="true" data-cookie="classic" data-size="40"></span>
+        <span class="brand-name">Home Crumbs</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main">
+        <ul id="nav-list">
+          <li><a href="#menu">Cookies</a></li>
+          <li><a href="#story">Our Kitchen</a></li>
+          <li><a href="#how">How to Order</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#order">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="cart-button" type="button" aria-controls="cart" aria-expanded="false" id="cart-open">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path d="M6 6h15l-1.5 9h-12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 6 5 3H2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/></svg>
+          <span>Box</span>
+          <span class="cart-count" id="cart-count" aria-live="polite">0</span>
+          <span class="visually-hidden">items in your cookie box</span>
+        </button>
+        <button class="menu-toggle" type="button" aria-controls="nav-list" aria-expanded="false" id="menu-toggle">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="visually-hidden">Open menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ Hero ============ -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="currentColor"/></svg>
+            Baked in our home kitchen
+          </p>
+          <h1>Warm, gooey cookies made <span class="highlight">by hand, at home.</span></h1>
+          <p class="lead">Real butter, brown sugar and a lot of love. Every batch is mixed, scooped and baked to order in small batches, never from a factory line.</p>
+          <div class="hero-ctas">
+            <a href="#menu" class="btn btn-primary">See the cookies</a>
+            <a href="#how" class="btn btn-ghost">How ordering works</a>
+          </div>
+          <ul class="hero-facts" aria-label="Why our cookies">
+            <li><strong>100%</strong><span>homemade</span></li>
+            <li><strong>Same-day</strong><span>fresh baked</span></li>
+            <li><strong>No</strong><span>preservatives</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="plate">
+            <span class="hero-cookie c1" data-cookie="classic" data-size="260"></span>
+            <span class="hero-cookie c2" data-cookie="double" data-size="170"></span>
+            <span class="hero-cookie c3" data-cookie="oat" data-size="130"></span>
+          </div>
+          <div class="sticker">
+            <span>Fresh</span>
+            <strong>out of the oven</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Menu ============ -->
+    <section class="section" id="menu" aria-labelledby="menu-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">The cookie jar</p>
+          <h2 id="menu-title">This week's homemade cookies</h2>
+          <p class="section-sub">Sold in boxes of 6. Mix and match any flavours you like.</p>
+        </div>
+
+        <div class="filters" role="group" aria-label="Filter cookies">
+          <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-filter="classic" aria-pressed="false">Classics</button>
+          <button type="button" class="chip" data-filter="chocolate" aria-pressed="false">Chocolate lovers</button>
+          <button type="button" class="chip" data-filter="special" aria-pressed="false">Specials</button>
+        </div>
+
+        <ul class="cookie-grid" id="cookie-grid">
+          <!-- Rendered by script.js from the COOKIES list -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ Story ============ -->
+    <section class="section story" id="story" aria-labelledby="story-title">
+      <div class="container story-inner">
+        <div class="story-art" aria-hidden="true">
+          <div class="recipe-card">
+            <p class="recipe-title">Grandma's recipe card</p>
+            <ul>
+              <li>2 cups flour</li>
+              <li>1 cup real butter, softened</li>
+              <li>1 cup brown sugar</li>
+              <li>2 farm eggs</li>
+              <li>Vanilla, a pinch of sea salt</li>
+              <li>Chocolate chips… a lot</li>
+            </ul>
+            <span class="recipe-cookie" data-cookie="classic" data-size="120"></span>
+          </div>
+        </div>
+        <div class="story-copy">
+          <p class="eyebrow">Our kitchen</p>
+          <h2 id="story-title">It all started with one family recipe</h2>
+          <p>Home Crumbs is a tiny home bakery. What began as weekend baking for friends and neighbours turned into a little cookie business, run from the same kitchen table where we learned to bake.</p>
+          <p>We still do everything by hand: we brown the butter, rest the dough overnight for deeper flavour, and bake every tray ourselves. If a batch isn't perfect, it doesn't go in your box.</p>
+          <ul class="values">
+            <li>
+              <span class="value-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6C19 16.5 12 21 12 21z" fill="currentColor"/></svg></span>
+              <div><strong>Made with love</strong><span>Small batches, hand-scooped every time.</span></div>
+            </li>
+            <li>
+              <span class="value-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 21c0-9 5-15 15-17-1 10-7 15-15 17zM5 21l7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div><strong>Real ingredients</strong><span>Butter, eggs and good chocolate. Nothing artificial.</span></div>
+            </li>
+            <li>
+              <span class="value-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+              <div><strong>Baked to order</strong><span>We bake on the day you pick up.</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ How to order ============ -->
+    <section class="section how" id="how" aria-labelledby="how-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Easy as 1, 2, 3</p>
+          <h2 id="how-title">How ordering works</h2>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Fill your box</h3>
+            <p>Pick your favourite flavours from the cookie jar. Mix and match as much as you like.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Send your order</h3>
+            <p>Tell us your name, pickup or delivery, and the day you'd like them. We confirm within a few hours.</p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Enjoy them warm</h3>
+            <p>Pick up from our door or get local delivery, baked fresh that morning and still smelling like the oven.</p>
+          </li>
+        </ol>
+        <div class="center">
+          <a href="#menu" class="btn btn-primary">Start your box</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Reviews ============ -->
+    <section class="section" id="reviews" aria-labelledby="reviews-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Kind words</p>
+          <h2 id="reviews-title">What our neighbours say</h2>
+        </div>
+        <ul class="reviews">
+          <li class="review">
+            <div class="stars" aria-label="5 out of 5 stars"></div>
+            <blockquote>“Tastes exactly like the cookies my mum used to make. Crispy edges, soft middle. We order every Friday now.”</blockquote>
+            <p class="who">Sara M. <span>Regular customer</span></p>
+          </li>
+          <li class="review">
+            <div class="stars" aria-label="5 out of 5 stars"></div>
+            <blockquote>“Ordered three dozen for my daughter's birthday and they were gone in ten minutes. The double chocolate is dangerous.”</blockquote>
+            <p class="who">Omar K. <span>Party order</span></p>
+          </li>
+          <li class="review">
+            <div class="stars" aria-label="5 out of 5 stars"></div>
+            <blockquote>“You can really tell they're homemade. Still warm when I picked them up. Lovely people, too.”</blockquote>
+            <p class="who">Lina A. <span>First-time customer</span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ Order / Contact ============ -->
+    <section class="section order" id="order" aria-labelledby="order-title">
+      <div class="container order-inner">
+        <div class="order-info">
+          <p class="eyebrow">Place your order</p>
+          <h2 id="order-title">Ready for something sweet?</h2>
+          <p>Fill in the form and we'll get back to you to confirm your order and pickup time.</p>
+          <dl class="info-list">
+            <div>
+              <dt>Baking days</dt>
+              <dd>Wednesday – Saturday</dd>
+            </div>
+            <div>
+              <dt>Pickup hours</dt>
+              <dd>10:00 am – 6:00 pm</dd>
+            </div>
+            <div>
+              <dt>Order ahead</dt>
+              <dd>At least 1 day before</dd>
+            </div>
+            <div>
+              <dt>Delivery</dt>
+              <dd>Free within 5 km on orders of 2+ boxes</dd>
+            </div>
+          </dl>
+        </div>
+
+        <form class="order-form" id="order-form" novalidate>
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+            <p class="error" id="name-error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+            <p class="hint" id="phone-hint">We'll text you to confirm.</p>
+            <p class="error" id="phone-error" aria-live="polite"></p>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="date">Pickup / delivery date</label>
+              <input id="date" name="date" type="date" required />
+              <p class="error" id="date-error" aria-live="polite"></p>
+            </div>
+            <fieldset class="field">
+              <legend>How would you like it?</legend>
+              <div class="radio-group">
+                <label class="radio"><input type="radio" name="method" value="Pickup" checked /> Pickup</label>
+                <label class="radio"><input type="radio" name="method" value="Delivery" /> Delivery</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="field">
+            <label for="notes">Notes <span class="optional">(optional)</span></label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Allergies, gift message, party orders…"></textarea>
+          </div>
+
+          <div class="order-summary" id="order-summary" aria-live="polite"></div>
+
+          <button type="submit" class="btn btn-primary btn-block">Send my order</button>
+          <p class="form-status" id="form-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="#top" class="brand brand-footer">
+          <span class="brand-mark" aria-hidden="true" data-cookie="classic" data-size="36"></span>
+          <span class="brand-name">Home Crumbs</span>
+        </a>
+        <p>Homemade cookies, baked with love in a small home kitchen.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="#menu">Cookies</a></li>
+          <li><a href="#story">Our Kitchen</a></li>
+          <li><a href="#how">How to Order</a></li>
+          <li><a href="#order">Contact</a></li>
+        </ul>
+      </nav>
+      <p class="small">Made in a home kitchen that also handles nuts, dairy, eggs and gluten.<br />© <span id="year"></span> Home Crumbs</p>
+    </div>
+  </footer>
+
+  <!-- ============ Cart drawer ============ -->
+  <div class="cart-backdrop" id="cart-backdrop" hidden></div>
+  <aside class="cart" id="cart" aria-labelledby="cart-title" aria-hidden="true" tabindex="-1">
+    <div class="cart-head">
+      <h2 id="cart-title">Your cookie box</h2>
+      <button type="button" class="icon-btn" id="cart-close">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="visually-hidden">Close cookie box</span>
+      </button>
+    </div>
+    <ul class="cart-items" id="cart-items"></ul>
+    <div class="cart-foot">
+      <p class="cart-total"><span>Total</span><strong id="cart-total">$0.00</strong></p>
+      <a href="#order" class="btn btn-primary btn-block" id="cart-checkout">Continue to order</a>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

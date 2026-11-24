@@ -1,6 +1,6 @@
 /* =========================================================
    Home Crumbs — homemade cookie shop
-   Design tokens: warm brown + cream, Lyon Arabic (Arabic, RTL)
+   Design tokens: warm brown + cream, Lalezar headings + Lyon Arabic text (Arabic, RTL)
    ========================================================= */
 
 /* ---------- Lyon Arabic (Commercial Type, licensed font) ----------
@@ -41,7 +41,7 @@
   --color-error: #b91c1c;
   --color-success: #166534;
 
-  --font-display: "Lyon Arabic", "Noto Naskh Arabic", "Times New Roman", serif;
+  --font-display: "Lalezar", "Lyon Arabic", "Noto Naskh Arabic", serif;
   --font-body: "Lyon Arabic", "Noto Naskh Arabic", "Times New Roman", serif;
 
   --radius-sm: 10px;
@@ -71,7 +71,7 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
+html { font-synthesis: none; overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
 
 body {
   margin: 0;
@@ -89,7 +89,7 @@ img, svg { display: block; max-width: 100%; }
 h1, h2, h3 {
   font-family: var(--font-display);
   color: var(--color-heading);
-  line-height: 1.5;
+  line-height: 1.4;
   margin: 0 0 var(--space-4);
   text-wrap: balance;
 }
@@ -406,7 +406,7 @@ a { color: var(--color-primary); }
   background: rgba(252, 217, 160, 0.85);
 }
 .recipe-title { font-size: 1.4rem; font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-3); }
-.recipe-card ul { margin: 0; padding-inline-start: 1.1em; line-height: 32px; font-weight: 600; }
+.recipe-card ul { margin: 0; padding-inline-start: 1.1em; line-height: 32px; font-family: var(--font-body); font-weight: 600; }
 .recipe-cookie { position: absolute; inset-inline-end: -12px; bottom: -36px; width: 120px; transform: rotate(18deg); filter: drop-shadow(0 8px 10px rgba(74, 37, 17, 0.3)); }
 
 .values { list-style: none; padding: 0; margin: var(--space-6) 0 0; display: grid; gap: var(--space-4); }
